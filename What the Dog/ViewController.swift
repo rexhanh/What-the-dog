@@ -129,28 +129,45 @@ extension ViewController: UIImagePickerControllerDelegate {
         newImage.draw(in: CGRect(x: 0, y: 0, width: newImage.size.width, height: newImage.size.height))
         UIGraphicsPopContext()
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
-        switch modelSegment.selectedSegmentIndex {
-        case 0:
-            guard let prediction = try? dogmodel.prediction(image: pixelBuffer!) else {
-                return
+        let segmentindex = self.modelSegment.selectedSegmentIndex
+        if segmentindex == 0 {
+            guard let prediction = try? dogmodel.prediction(image: pixelBuffer!) else{return}
+            let topprediction = prediction.classLabel
+            let toppredictionConf = prediction.classLabelProbs[topprediction] ?? 2
+            var predictionStr = ""
+            if toppredictionConf <= 0.95 {
+                predictionStr.append("Not sure what dog he/she is. \n The highest chance he/she is a \(topprediction) dog with confidence \(Int(toppredictionConf * 100)) %.\n")
+                for (key, value) in prediction.classLabelProbs {
+                    if key != topprediction && value >= 0.2{
+                        predictionStr.append("It might also be a \(key) dog with confidence of \(Int(value * 100))%.\n")
+                    }
+                }
+            } else {
+                predictionStr.append("I am \(Int(toppredictionConf * 100)) percent sure it is a \(topprediction) dog!")
             }
-            classifyLabel.text = "I think this is a \(prediction.classLabel) dog with\n \(Int((prediction.classLabelProbs[prediction.classLabel] ?? 0) * 100)) % confidence."
-        case 1:
-            guard let prediction = try? catmodel.prediction(image: pixelBuffer!) else {
-                return
+            self.classifyLabel.text = predictionStr
+        } else if segmentindex == 1{
+            guard let prediction = try? catmodel.prediction(image: pixelBuffer!) else{return}
+            let topprediction = prediction.classLabel
+            let toppredictionConf = prediction.classLabelProbs[topprediction] ?? 2
+            var predictionStr = ""
+            if toppredictionConf <= 0.95 {
+                predictionStr.append("Not sure what cat he/she is. \n The highest chance he/she is a \(topprediction) cat with confidence \(Int(toppredictionConf * 100)) %.\n")
+                for (key, value) in prediction.classLabelProbs {
+                    if key != topprediction && value >= 0.2{
+                        predictionStr.append("It might also be a \(key) cat with confidence of \(Int(value * 100))%.\n")
+                    }
+                }
+            } else {
+                predictionStr.append("I am \(Int(toppredictionConf * 100)) percent sure it is a \(topprediction) cat!")
             }
-            classifyLabel.text = "I think this is a \(prediction.classLabel) cat with\n \(Int((prediction.classLabelProbs[prediction.classLabel] ?? 0) * 100)) % confidence."
-        default:
-            guard let prediction = try? dogmodel.prediction(image: pixelBuffer!) else {
-                return
-            }
-            classifyLabel.text = "I think this is a \(prediction.classLabel) dog with\n \(Int((prediction.classLabelProbs[prediction.classLabel] ?? 0) * 100)) % confidence."
+            self.classifyLabel.text = predictionStr
         }
         self.imageView.image = newImage
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }
+
+
 
 
