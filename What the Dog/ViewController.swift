@@ -61,6 +61,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         classifyLabel.textAlignment = .center
         classifyLabel.numberOfLines = 0
         classifyLabel.text = ""
+        classifyLabel.isUserInteractionEnabled = true
     }
     
     
@@ -136,10 +137,10 @@ extension ViewController: UIImagePickerControllerDelegate {
             let toppredictionConf = prediction.classLabelProbs[topprediction] ?? 2
             var predictionStr = ""
             if toppredictionConf <= 0.95 {
-                predictionStr.append("Not sure what dog he/she is. \n The highest chance he/she is a \(topprediction) dog with confidence \(Int(toppredictionConf * 100)) %.\n")
+                predictionStr.append("Not sure what dog he/she is. \nHe/She is probably a \(topprediction) dog, \nprobability: \(Int(toppredictionConf * 100)) %.\n\n")
                 for (key, value) in prediction.classLabelProbs {
                     if key != topprediction && value >= 0.2{
-                        predictionStr.append("It might also be a \(key) dog with confidence of \(Int(value * 100))%.\n")
+                        predictionStr.append("It might also be a \(key) dog, \nprobability: \(Int(value * 100))%.\n")
                     }
                 }
             } else {
@@ -152,10 +153,11 @@ extension ViewController: UIImagePickerControllerDelegate {
             let toppredictionConf = prediction.classLabelProbs[topprediction] ?? 2
             var predictionStr = ""
             if toppredictionConf <= 0.95 {
-                predictionStr.append("Not sure what cat he/she is. \n The highest chance he/she is a \(topprediction) cat with confidence \(Int(toppredictionConf * 100)) %.\n")
+                predictionStr.append("Not sure what cat he/she is. \nHe/She is probably a \(topprediction) cat, \nprobability: \(Int(toppredictionConf * 100)) %.\n")
+                
                 for (key, value) in prediction.classLabelProbs {
-                    if key != topprediction && value >= 0.2{
-                        predictionStr.append("It might also be a \(key) cat with confidence of \(Int(value * 100))%.\n")
+                    if key != topprediction && value >= 0.05{
+                        predictionStr.append("It might also be a \(key) cat, \nprobability: \(Int(value * 100))%.\n\n")
                     }
                 }
             } else {
