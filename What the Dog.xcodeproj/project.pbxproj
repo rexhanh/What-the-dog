@@ -8,17 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		51BFF43D24C41A8F00FA3710 /* CatClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 51BFF43C24C41A8F00FA3710 /* CatClassifier.mlmodel */; };
+		51BFF43F24C5167D00FA3710 /* DogClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 51BFF43E24C5167D00FA3710 /* DogClassifier.mlmodel */; };
 		51CCB85D24BFBCF500B7838D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCB85C24BFBCF500B7838D /* AppDelegate.swift */; };
 		51CCB85F24BFBCF500B7838D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCB85E24BFBCF500B7838D /* SceneDelegate.swift */; };
 		51CCB86124BFBCF500B7838D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCB86024BFBCF500B7838D /* ViewController.swift */; };
 		51CCB86424BFBCF500B7838D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CCB86224BFBCF500B7838D /* Main.storyboard */; };
 		51CCB86624BFBCFA00B7838D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51CCB86524BFBCFA00B7838D /* Assets.xcassets */; };
 		51CCB86924BFBCFA00B7838D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CCB86724BFBCFA00B7838D /* LaunchScreen.storyboard */; };
-		51CCB87124BFC4F400B7838D /* DogClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 51CCB87024BFC4F300B7838D /* DogClassifier.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		51BFF43C24C41A8F00FA3710 /* CatClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CatClassifier.mlmodel; sourceTree = "<group>"; };
+		51BFF43E24C5167D00FA3710 /* DogClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogClassifier.mlmodel; sourceTree = "<group>"; };
 		51CCB85924BFBCF500B7838D /* What the Dog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "What the Dog.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51CCB85C24BFBCF500B7838D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		51CCB85E24BFBCF500B7838D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,7 +28,6 @@
 		51CCB86524BFBCFA00B7838D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		51CCB86824BFBCFA00B7838D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51CCB86A24BFBCFA00B7838D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		51CCB87024BFC4F300B7838D /* DogClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogClassifier.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,7 @@
 				51CCB86524BFBCFA00B7838D /* Assets.xcassets */,
 				51CCB86724BFBCFA00B7838D /* LaunchScreen.storyboard */,
 				51CCB86A24BFBCFA00B7838D /* Info.plist */,
-				51CCB87024BFC4F300B7838D /* DogClassifier.mlmodel */,
+				51BFF43E24C5167D00FA3710 /* DogClassifier.mlmodel */,
 				51BFF43C24C41A8F00FA3710 /* CatClassifier.mlmodel */,
 			);
 			path = "What the Dog";
@@ -145,10 +145,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				51CCB86124BFBCF500B7838D /* ViewController.swift in Sources */,
+				51BFF43F24C5167D00FA3710 /* DogClassifier.mlmodel in Sources */,
 				51CCB85D24BFBCF500B7838D /* AppDelegate.swift in Sources */,
 				51CCB85F24BFBCF500B7838D /* SceneDelegate.swift in Sources */,
 				51BFF43D24C41A8F00FA3710 /* CatClassifier.mlmodel in Sources */,
-				51CCB87124BFC4F400B7838D /* DogClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

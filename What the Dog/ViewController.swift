@@ -15,42 +15,84 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var classifyLabel: UILabel!
-    
+
     var dogmodel: DogClassifier!
     var catmodel: CatClassifier!
+    
+    var imagePicker: UIImagePickerController!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setupImagepicker()
+        setuplabel()
+        setupgestures()
+    }
+    
+    
+    private func setupgestures() {
+        let right = UISwipeGestureRecognizer(target: self, action: #selector(swiperight))
+        right.direction = .right
+        self.view.addGestureRecognizer(right)
+        
+        let left = UISwipeGestureRecognizer(target: self, action: #selector(swipeleft))
+        left.direction = .left
+        self.view.addGestureRecognizer(left)
+    }
+    
+    @objc func swiperight(sender: UISwipeGestureRecognizer) {
+        if self.modelSegment.selectedSegmentIndex == 0 {
+            self.modelSegment.selectedSegmentIndex += 1
+        }
+    }
+    @objc func swipeleft(sender: UISwipeGestureRecognizer) {
+        if self.modelSegment.selectedSegmentIndex == 1 {
+            self.modelSegment.selectedSegmentIndex -= 1
+        }
+    }
+    private func setupImagepicker() {
+        self.imagePicker = UIImagePickerController()
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = .photoLibrary
+    }
+    
+    
+    private func setuplabel() {
+        classifyLabel.font = UIFont(name: "Chalkboard SE", size: 20)!
         classifyLabel.textAlignment = .center
+        classifyLabel.numberOfLines = 0
         classifyLabel.text = ""
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         dogmodel = DogClassifier()
         catmodel = CatClassifier()
     }
-    @IBAction func camera(_ sender: Any) {
-        if !UIImagePickerController.isSourceTypeAvailable(.camera) {
-            return
+
+    @IBAction func addimage(_ sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        if let popover = alert.popoverPresentationController {
+            popover.barButtonItem = sender
+            popover.sourceView = self.view
+            popover.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
         }
-        
-        let cameraPicker = UIImagePickerController()
-        cameraPicker.delegate = self
-        cameraPicker.sourceType = .camera
-        cameraPicker.allowsEditing = false
-        
-        present(cameraPicker, animated: true)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {action in
+            self.present(self.imagePicker, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {action in
+            if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+                self.dismiss(animated: true, completion: nil)
+                return
+            }
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true)
+        }))
+        self.present(alert, animated: true)
     }
     
-    @IBAction func library(_ sender: Any) {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = false
-        picker.delegate = self
-        picker.sourceType = .photoLibrary
-        present(picker, animated: true)
-    }
-
 }
 
 extension ViewController: UIImagePickerControllerDelegate {
@@ -110,3 +152,5 @@ extension ViewController: UIImagePickerControllerDelegate {
     
     
 }
+
+
